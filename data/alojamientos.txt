@@ -1,0 +1,4 @@
+A1|Apartamento El Bosque|Bogota|Carrera 7 # 134-4|4|120000.0|true|Apartamento cerca a universidad el Bosque|Apartamento
+A2|Casa Galerias|Bogota|Calle 57 # 16-10|6|180000.0|true|Casa amplia para familias|Casa
+A3|Cabaña PaloVerde|Cali|Vereda Norte|5|150000.0|true|Cabaña para descanso|Cabaña
+A4|Apartamento PH Estadio|Medellin|Laureles|3|100000.0|false|Alojamiento temporalmente inactivo|Apartamento
