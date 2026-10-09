@@ -28,6 +28,6 @@ public class DataMapper {
 
     public ReservaDTO reservaToDTO(Reserva r) {
         return new ReservaDTO(r.getId(),r.getHuesped().getId(),r.getAlojamiento().getId(),
-                r.getFechaLlegada(),r.getFechaSalida(),r.getNumeroHuespedes(),r.getValorTotal(),r.getEstado().name());
+                r.getFechaLlegada(),r.getFechaSalida(),r.getNumeroHuespedes(),r.getValorTotal(),r.getEstado());
     }
 }

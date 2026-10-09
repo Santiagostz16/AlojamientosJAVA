@@ -11,7 +11,7 @@ public class Reserva {
     private LocalDate fechaSalida;
     private int numeroHuespedes;
     private double valorTotal;
-    private EstadoReserva estado;
+    private String estado;
 
     public Reserva(String id, Huesped huesped, Alojamiento alojamiento,
                    LocalDate fechaLlegada, LocalDate fechaSalida, int numeroHuespedes) {
@@ -22,7 +22,7 @@ public class Reserva {
         this.fechaSalida = fechaSalida;
         this.numeroHuespedes = numeroHuespedes;
         this.valorTotal = calcularValorTotal();
-        this.estado = EstadoReserva.CONFIRMADA;
+        this.estado = "CONFIRMADA";
     }
 
     private double calcularValorTotal() {
@@ -39,11 +39,11 @@ public class Reserva {
         return (int) ChronoUnit.DAYS.between(fechaLlegada, fechaSalida);
     }
     public double getValorTotal() { return valorTotal; }
-    public EstadoReserva getEstado() { return estado; }
+    public String getEstado() { return estado; }
 
     public void cancelar() {
-        if (estado == EstadoReserva.CONFIRMADA) {
-            estado = EstadoReserva.CANCELADA;
+        if (estado.equals("CONFIRMADA")) {
+            estado = "CANCELADA";
         }
     }
 
