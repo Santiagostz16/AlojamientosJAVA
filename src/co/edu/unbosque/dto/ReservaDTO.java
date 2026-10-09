@@ -2,18 +2,22 @@ package co.edu.unbosque.dto;
 
 import java.time.LocalDate;
 
+// transporto una reserva con las referencias a su huésped y alojamiento
 public class ReservaDTO {
     private String id, idHuesped, idAlojamiento, estado;
     private LocalDate fechaLlegada, fechaSalida;
     private int numeroHuespedes;
     private double valorTotal;
 
-    public ReservaDTO(String id, String idHuesped, String idAlojamiento,
-                      LocalDate fechaLlegada, LocalDate fechaSalida,
-                      int numeroHuespedes, double valorTotal, String estado) {
-        this.id = id; this.idHuesped = idHuesped; this.idAlojamiento = idAlojamiento;
-        this.fechaLlegada = fechaLlegada; this.fechaSalida = fechaSalida;
-        this.numeroHuespedes = numeroHuespedes; this.valorTotal = valorTotal; this.estado = estado;
+    public ReservaDTO(String id, String idHuesped, String idAlojamiento,LocalDate fechaLlegada, LocalDate fechaSalida, int numeroHuespedes, double valorTotal, String estado) {
+        this.id = id; 
+        this.idHuesped = idHuesped; 
+        this.idAlojamiento = idAlojamiento;
+        this.fechaLlegada = fechaLlegada; 
+        this.fechaSalida = fechaSalida;
+        this.numeroHuespedes = numeroHuespedes; 
+        this.valorTotal = valorTotal; 
+        this.estado = estado;
     }
 
     public String getId() { return id; }

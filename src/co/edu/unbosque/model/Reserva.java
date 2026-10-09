@@ -25,6 +25,7 @@ public class Reserva {
         this.estado = "CONFIRMADA";
     }
 
+    // aplico la tarifa que corresponde al alojamiento para las noches reservadas
     private double calcularValorTotal() {
         return alojamiento.calcularValorReserva(getNumeroNoches());
     }
@@ -35,12 +36,14 @@ public class Reserva {
     public LocalDate getFechaLlegada() { return fechaLlegada; }
     public LocalDate getFechaSalida() { return fechaSalida; }
     public int getNumeroHuespedes() { return numeroHuespedes; }
+    // cuento los días entre llegada y salida como noches de la estadía
     public int getNumeroNoches() {
         return (int) ChronoUnit.DAYS.between(fechaLlegada, fechaSalida);
     }
     public double getValorTotal() { return valorTotal; }
     public String getEstado() { return estado; }
 
+    // cambio el estado solo si la reserva todavía está confirmada
     public void cancelar() {
         if (estado.equals("CONFIRMADA")) {
             estado = "CANCELADA";

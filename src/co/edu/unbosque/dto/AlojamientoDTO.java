@@ -1,14 +1,13 @@
 package co.edu.unbosque.dto;
 
+// transporto los datos de un alojamiento entre el modelo y los archivos
 public class AlojamientoDTO {
     private String id, nombre, ciudad, ubicacion, descripcion, tipo;
     private int capacidad;
     private double precioNoche;
     private boolean activo;
 
-    public AlojamientoDTO(String id, String nombre, String ciudad, String ubicacion,
-                          int capacidad, double precioNoche, boolean activo,
-                          String descripcion, String tipo) {
+    public AlojamientoDTO(String id, String nombre, String ciudad, String ubicacion,int capacidad, double precioNoche, boolean activo, String descripcion, String tipo) {
         this.id = id; this.nombre = nombre; this.ciudad = ciudad; this.ubicacion = ubicacion;
         this.capacidad = capacidad; this.precioNoche = precioNoche; this.activo = activo;
         this.descripcion = descripcion; this.tipo = tipo;

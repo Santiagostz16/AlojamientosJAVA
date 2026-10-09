@@ -10,8 +10,7 @@ public abstract class Alojamiento implements CalculableReserva {
     private boolean activo;
     private String descripcion;
 
-    public Alojamiento(String id, String nombre, String ciudad, String ubicacion,
-                       int capacidad, double precioNoche, boolean activo, String descripcion) {
+    public Alojamiento(String id, String nombre, String ciudad, String ubicacion, int capacidad, double precioNoche, boolean activo, String descripcion) {
         this.id = id;
         this.nombre = nombre;
         this.ciudad = ciudad;
@@ -35,6 +34,7 @@ public abstract class Alojamiento implements CalculableReserva {
 
     public void setActivo(boolean activo) { this.activo = activo; }
 
+    // un alojamiento solo se ofrece para reservas cuando está activo
     public boolean estaDisponible() {
         return activo;
     }

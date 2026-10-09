@@ -5,10 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import co.edu.unbosque.dto.HuespedDTO;
 
+// manejo la carga y el guardado de huespedes en huespedes.txt
 public class ArchivoHuespedDAO implements HuespedDAO {
     private final String archivo = "data/huespedes.txt";
 
     @Override
+    // leo las líneas del archivo y armo un huésped cuando encuentro sus cinco datos
     public List<HuespedDTO> cargar() {
         List<HuespedDTO> lista = new ArrayList<>();
         File file = new File(archivo);
@@ -28,6 +30,7 @@ public class ArchivoHuespedDAO implements HuespedDAO {
     }
 
     @Override
+    // guardo los datos de cada huesped separados por el mismo formato del archivo
     public void guardar(List<HuespedDTO> datos) {
         new File("data").mkdirs();
         try (PrintWriter pw = new PrintWriter(new FileWriter(archivo))) {

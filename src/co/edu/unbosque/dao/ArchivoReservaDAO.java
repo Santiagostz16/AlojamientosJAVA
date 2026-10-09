@@ -6,10 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import co.edu.unbosque.dto.ReservaDTO;
 
+// manejo la carga y el guardado de reservas en reservas.txt
 public class ArchivoReservaDAO implements ReservaDAO {
     private final String archivo = "data/reservas.txt";
 
     @Override
+    // convierto cada registro válido, incluyendo sus fechas, a un DTO de reserva
     public List<ReservaDTO> cargar() {
         List<ReservaDTO> lista = new ArrayList<>();
         File file = new File(archivo);
@@ -36,6 +38,7 @@ public class ArchivoReservaDAO implements ReservaDAO {
     }
 
     @Override
+    // escribo las fechas, ids relacionados, valor y estado de cada reserva
     public void guardar(List<ReservaDTO> datos) {
         new File("data").mkdirs();
         try (PrintWriter pw = new PrintWriter(new FileWriter(archivo))) {

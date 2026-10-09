@@ -34,6 +34,7 @@ public class Controller {
         ejecutarMenu();
     }
 
+    // convierto los datos del archivo a objetos y relaciono cada reserva con sus registros
     private void cargarDatos() {
         for (AlojamientoDTO d : alojamientoDAO.cargar()) {
             if (idsAlojamientos.add(d.getId())) {
@@ -57,6 +58,7 @@ public class Controller {
         }
     }
 
+    // mantengo el sistema en el menú hasta que se elija la opción de salida
     private void ejecutarMenu() {
         int opcion;
         do {
@@ -101,10 +103,12 @@ public class Controller {
         view.cerrar();
     }
 
+    // muestro todos los alojamientos que quedaron cargados en memoria
     private void listarAlojamientos() {
         view.mostrarAlojamientos(alojamientos);
     }
 
+    // aplico solo los filtros que el usuario diligencia y muestro las coincidencias
     private void buscarAlojamientos() {
         String ciudad = view.leerTexto("Ciudad (dejala en blanco para CUALQUIERA): ");
         String tipo = view.leerTexto("Tipo(dejala en blanco para CUALQUIERA): ");
@@ -136,11 +140,13 @@ public class Controller {
         view.mostrarAlojamientos(resultado);
     }
 
+    // busco el alojamiento por su identificador y presento sus datos completos
     private void verDetalle() {
         String id = view.leerObligatorio("ID del alojamiento: ");
         view.mostrarDetalle(buscarAlojamiento(id));
     }
 
+    // reviso el documento y evito registrar dos veces al mismo huésped
     private void registrarHuesped() {
         String id = view.leerObligatorio("ID: ");
 
@@ -170,6 +176,7 @@ public class Controller {
         view.mensaje("Huesped registrado.");
     }
 
+    // verifico los datos y disponibilidad antes de crear una reserva
     private void crearReserva() {
         String id = view.leerObligatorio("ID de reserva: ");
         if (buscarReserva(id) != null) {
@@ -218,6 +225,7 @@ public class Controller {
         view.mensaje("Reserva creada. Total: $" + r.getValorTotal());
     }
 
+    // comparo las fechas con reservas confirmadas del mismo alojamiento
     private boolean hayCruce(Alojamiento a, LocalDate llegada, LocalDate salida) {
         for (Reserva r : reservas) {
             if (r.getEstado().equals("CONFIRMADA") && r.getAlojamiento().getId().equals(a.getId())) {
@@ -228,6 +236,7 @@ public class Controller {
         return false;
     }
 
+    // cambio el estado de una reserva existente y guardo el resultado
     private void cancelarReserva() {
         Reserva r = buscarReserva(view.leerObligatorio("ID de reserva: "));
         if (r == null) {
@@ -245,6 +254,7 @@ public class Controller {
         view.mensaje("Reserva cancelada.");
     }
 
+    // dejo elegir el reporte y muestro el dato calculado para esa opción
     private void reportes() {
         System.out.println("1. Alojamientos por ciudad");
         System.out.println("2. Reservas confirmadas");
@@ -288,6 +298,7 @@ public class Controller {
         }
     }
 
+    // encuentro un alojamiento por id sin distinguir mayúsculas de minúsculas
     private Alojamiento buscarAlojamiento(String id) {
         for (Alojamiento a : alojamientos)
             if (a.getId().equalsIgnoreCase(id))
@@ -295,6 +306,7 @@ public class Controller {
         return null;
     }
 
+    // encuentro un huésped por id sin distinguir mayúsculas de minúsculas
     private Huesped buscarHuesped(String id) {
         for (Huesped h : huespedes)
             if (h.getId().equalsIgnoreCase(id))
@@ -302,6 +314,7 @@ public class Controller {
         return null;
     }
 
+    // encuentro una reserva por id sin distinguir mayúsculas de minúsculas
     private Reserva buscarReserva(String id) {
         for (Reserva r : reservas)
             if (r.getId().equalsIgnoreCase(id))
@@ -309,12 +322,14 @@ public class Controller {
         return null;
     }
 
+    // guardo las tres colecciones para conservar los cambios al salir
     private void guardarTodo() {
         guardarAlojamientos();
         guardarHuespedes();
         guardarReservas();
     }
 
+    // preparo los alojamientos como DTO antes de enviarlos al archivo
     private void guardarAlojamientos() {
         List<AlojamientoDTO> datos = new ArrayList<>();
         for (Alojamiento a : alojamientos)
@@ -322,6 +337,7 @@ public class Controller {
         alojamientoDAO.guardar(datos);
     }
 
+    // preparo los huéspedes como DTO antes de enviarlos al archivo
     private void guardarHuespedes() {
         List<HuespedDTO> datos = new ArrayList<>();
         for (Huesped h : huespedes)
@@ -329,6 +345,7 @@ public class Controller {
         huespedDAO.guardar(datos);
     }
 
+    // preparo las reservas como DTO antes de enviarlas al archivo
     private void guardarReservas() {
         List<ReservaDTO> datos = new ArrayList<>();
         for (Reserva r : reservas)

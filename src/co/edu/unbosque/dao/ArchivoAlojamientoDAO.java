@@ -5,10 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import co.edu.unbosque.dto.AlojamientoDTO;
 
+// manejo la carga y el guardado de alojamientos en alojamientos.txt
 public class ArchivoAlojamientoDAO implements AlojamientoDAO {
     private final String archivo = "data/alojamientos.txt";
 
     @Override
+    // leo cada línea y solo convierto los registros con sus nueve campos válidos
     public List<AlojamientoDTO> cargar() {
         List<AlojamientoDTO> lista = new ArrayList<>();
         File file = new File(archivo);
@@ -36,6 +38,7 @@ public class ArchivoAlojamientoDAO implements AlojamientoDAO {
     }
 
     @Override
+    // escribo la lista completa usando una línea por alojamiento
     public void guardar(List<AlojamientoDTO> datos) {
         crearCarpeta();
         try (PrintWriter pw = new PrintWriter(new FileWriter(archivo))) {
@@ -49,6 +52,7 @@ public class ArchivoAlojamientoDAO implements AlojamientoDAO {
         }
     }
 
+    // me aseguro de que exista la carpeta antes de crear el archivo
     private void crearCarpeta() { 
     	new File("data").mkdirs(); }
 }

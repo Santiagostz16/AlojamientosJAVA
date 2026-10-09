@@ -10,7 +10,7 @@ import co.edu.unbosque.model.Reserva;
 
 public class View {
 	private Scanner scanner = new Scanner(System.in);
-
+	// muestro el menu
 	public void mostrarMenu() {
 		System.out.println("SISTEMA DE ALOJAMIENTOS");
 		System.out.println("1. Consultar alojamientos");
@@ -25,15 +25,18 @@ public class View {
 		System.out.println("0. Salir");
 	}
 
+	// leo la opción del menu usando la validación de números enteros
 	public int leerOpcion() {
 		return leerEntero("Opción: ");
 	}
 
+	// recibo texto y quito espacios sobrantes al principio y al final
 	public String leerTexto(String mensaje) {
 		System.out.print(mensaje);
 		return scanner.nextLine().trim();
 	}
 
+	// vuelvo a pedir el dato mientras el usuario lo deje vacío
 	public String leerObligatorio(String mensaje) {
 		String dato;
 		do {
@@ -44,6 +47,7 @@ public class View {
 		return dato;
 	}
 
+	// repito la lectura hasta que se ingrese un número entero
 	public int leerEntero(String mensaje) {
 		while (true) {
 			try {
@@ -54,6 +58,7 @@ public class View {
 		}
 	}
 
+	// acepto solo cantidades enteras mayores que cero
 	public int leerEnteroPositivo(String mensaje) {
 		int valor;
 		do {
@@ -64,6 +69,7 @@ public class View {
 		return valor;
 	}
 
+	// valido que el valor ingresado sea un número decimal positivo
 	public double leerDoublePositivo(String mensaje) {
 		while (true) {
 			try {
@@ -77,6 +83,7 @@ public class View {
 		}
 	}
 
+	// convierto la fecha ingresada y pido otra si no tiene formato valido
 	public LocalDate leerFecha(String mensaje) {
 		while (true) {
 			try {
@@ -87,6 +94,7 @@ public class View {
 		}
 	}
 
+	// traduzco la opción elegida al tipo de alojamiento que usa el sistema
 	public String leerTipo() {
 		while (true) {
 			System.out.println("1. Apartamento");
@@ -103,6 +111,7 @@ public class View {
 		}
 	}
 
+	// muestro los alojamientos o aviso cuando la lista no tiene registros
 	public void mostrarAlojamientos(List<Alojamiento> lista) {
 		if (lista.isEmpty()) {
 			System.out.println("No hay alojamientos.");
@@ -112,6 +121,7 @@ public class View {
 			System.out.println(a);
 	}
 
+	// presento los campos principales del alojamiento seleccionado
 	public void mostrarDetalle(Alojamiento a) {
 		if (a == null) {
 			System.out.println("Alojamiento no encontrado.");
@@ -128,6 +138,7 @@ public class View {
 		System.out.println("Descripcion: " + a.getDescripcion());
 	}
 
+	// muestro los huespedes registrados o aviso si todavía no hay
 	public void mostrarHuespedes(List<Huesped> lista) {
 		if (lista.isEmpty()) {
 			System.out.println("No hay huespedes.");
@@ -137,6 +148,7 @@ public class View {
 			System.out.println(h);
 	}
 
+	// muestro las reservas registradas o aviso si todavía no hay
 	public void mostrarReservas(List<Reserva> lista) {
 		if (lista.isEmpty()) {
 			System.out.println("No hay reservas.");
