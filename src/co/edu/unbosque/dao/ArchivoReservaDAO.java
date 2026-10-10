@@ -21,7 +21,7 @@ public class ArchivoReservaDAO implements ReservaDAO {
             String linea;
             while ((linea = br.readLine()) != null) {
                 if (linea.trim().isEmpty()) continue;
-                String[] d = linea.split("\|", -1);
+                String[] d = linea.split("\\|", -1);
                 if (d.length == 8) {
                     try {
                         lista.add(new ReservaDTO(d[0],d[1],d[2],LocalDate.parse(d[3]),LocalDate.parse(d[4]),

@@ -51,7 +51,7 @@ public class Controller {
             if (h != null && a != null) {
                 Reserva r = new Reserva(d.getId(), h, a, d.getFechaLlegada(), d.getFechaSalida(),
                         d.getNumeroHuespedes());
-                if (d.getEstado().equals("cancelada!!!!!"))
+                if (d.getEstado().equals("CANCELADA"))
                     r.cancelar();
                 reservas.add(r);
             }
@@ -94,10 +94,10 @@ public class Controller {
                 break;
             case 0:
                 guardarTodo();
-                view.mensaje("cambios guardados!!!!");
+                view.mensaje("cambios guardados!!!!\n");
                 break;
             default:
-                view.mensaje("Opción no valida");
+                view.mensaje("Opción no valida\n");
             }
         } while (opcion != 0);
         view.cerrar();
@@ -113,7 +113,7 @@ public class Controller {
         String ciudad = view.leerTexto("Ciudad (dejala en blanco para CUALQUIERA): ");
         String tipo = view.leerTexto("Tipo(dejala en blanco para CUALQUIERA): ");
         String capacidadTexto = view.leerTexto("Capacidad minima(dejala en blanco para CUALQUIERA): ");
-        String precioTexto = view.leerTexto("Precio maximo (dejala en blanco para CUALQUIERA): ");
+        String precioTexto = view.leerTexto("Precio maximo (dejala en blanco para CUALQUIERA): \n");
 
         int capacidad = 0;
         double precio = Double.MAX_VALUE;
@@ -124,7 +124,7 @@ public class Controller {
             if (!precioTexto.isEmpty())
                 precio = Double.parseDouble(precioTexto);
         } catch (NumberFormatException e) {
-            view.mensaje("Uno de los filtros numericos no es valido.");
+            view.mensaje("un filtro numerico no es valido\n");
             return;
         }
 
@@ -173,56 +173,56 @@ public class Controller {
         String telefono = view.leerObligatorio("Telefono: ");
         huespedes.add(new Huesped(id, nombre, apellido, correo, telefono));
         guardarHuespedes();
-        view.mensaje("Huesped registrado.");
+        view.mensaje("Huesped registrado\n");
     }
 
     // verifico los datos y disponibilidad antes de crear una reserva
     private void crearReserva() {
         String id = view.leerObligatorio("ID de reserva: ");
         if (buscarReserva(id) != null) {
-            view.mensaje("El ID de reserva ya existe.");
+            view.mensaje("El ID de reserva ya existe\n");
             return;
         }
 
         Huesped h = buscarHuesped(view.leerObligatorio("ID del huesped: "));
         if (h == null) {
-            view.mensaje("El huesped no esta registrado.");
+            view.mensaje("El huesped no esta registrado\n");
             return;
         }
 
         Alojamiento a = buscarAlojamiento(view.leerObligatorio("ID del alojamiento: "));
         if (a == null) {
-            view.mensaje("El alojamiento no existe.");
+            view.mensaje("El alojamiento no existe\n");
             return;
         }
 
         if (!a.estaDisponible()) {
-            view.mensaje("El alojamiento esta inactivo.");
+            view.mensaje("El alojamiento esta inactivo\n");
             return;
         }
 
         LocalDate llegada = view.leerFecha("Fecha llegada AAAA-MM-DD: ");
         LocalDate salida = view.leerFecha("Fecha salida AAAA-MM-DD: ");
         if (!salida.isAfter(llegada)) {
-            view.mensaje("La salida debe ser posterior.");
+            view.mensaje("La salida debe ser posterior\n");
             return;
         }
 
         int cantidad = view.leerEnteroPositivo("Numero de huespedes: ");
         if (cantidad > a.getCapacidad()) {
-            view.mensaje("La cantidad supera la capacidad.");
+            view.mensaje("La cantidad supera la capacidad\n");
             return;
         }
 
         if (hayCruce(a, llegada, salida)) {
-            view.mensaje("El alojamiento ya esta reservado en esas fechas.");
+            view.mensaje("El alojamiento ya esta reservado en esas fechas\n");
             return;
         }
 
         Reserva r = new Reserva(id, h, a, llegada, salida, cantidad);
         reservas.add(r);
         guardarReservas();
-        view.mensaje("Reserva creada. Total: $" + r.getValorTotal());
+        view.mensaje("Reserva creada || total: $" + r.getValorTotal());
     }
 
     // comparo las fechas con reservas confirmadas del mismo alojamiento
@@ -240,18 +240,18 @@ public class Controller {
     private void cancelarReserva() {
         Reserva r = buscarReserva(view.leerObligatorio("ID de reserva: "));
         if (r == null) {
-            view.mensaje("Reserva no encontrada.");
+            view.mensaje("Reserva no encontrada\n");
             return;
         }
 
         if (r.getEstado().equals("CANCELADA")) {
-            view.mensaje("La reserva ya esta cancelada.");
+            view.mensaje("La reserva ya esta cancelada\n");
             return;
         }
 
         r.cancelar();
         guardarReservas();
-        view.mensaje("Reserva cancelada.");
+        view.mensaje("Reserva cancelada\n");
     }
 
     // dejo elegir el reporte y muestro el dato calculado para esa opción
@@ -268,33 +268,30 @@ public class Controller {
             String ciudad = view.leerObligatorio("Ciudad: ");
             int cantidad = reporte.alojamientosPorCiudad(
                     alojamientos, ciudad);
-            view.mensaje("Alojamientos en " + ciudad + ": " + cantidad);
+            view.mensaje("Alojamientos en " + ciudad + ": " + cantidad+"\n");
             break;
         case 2:
             int confirmadas = reporte.reservasConfirmadas(reservas);
-            view.mensaje("Reservas confirmadas: " + confirmadas);
+            view.mensaje("Reservas confirmadas: " + confirmadas+"\n");
             break;
         case 3:
             int canceladas = reporte.reservasCanceladas(reservas);
-            view.mensaje("Reservas canceladas: " + canceladas);
+            view.mensaje("Reservas canceladas: " + canceladas+"\n");
             break;
         case 4:
             double total = reporte.ingresosEstimados(reservas);
-            view.mensaje("Ingresos estimados: $" + total);
+            view.mensaje("Ingresos estimados: $" + total+"\n");
             break;
         case 5:
-            int apt = reporte.alojamientosPorTipo(
-                    alojamientos, "Apartamento");
-            int casas = reporte.alojamientosPorTipo(
-                    alojamientos, "Casa");
-            int cabanas = reporte.alojamientosPorTipo(
-                    alojamientos, "Cabana");
+            int apt = reporte.alojamientosPorTipo(alojamientos, "Apartamento");
+            int casas = reporte.alojamientosPorTipo(alojamientos, "Casa");
+            int cabanas = reporte.alojamientosPorTipo(alojamientos, "Cabana");
             view.mensaje("Apartamentos: " + apt);
             view.mensaje("Casas: " + casas);
-            view.mensaje("Cabanas: " + cabanas);
+            view.mensaje("Cabanas: " + cabanas+"\n");
             break;
         default:
-            view.mensaje("reporte no valido.");
+            view.mensaje("reporte no valido\n");
         }
     }
 
